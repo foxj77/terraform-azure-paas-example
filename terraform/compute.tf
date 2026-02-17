@@ -5,7 +5,7 @@ resource "azurerm_windows_virtual_machine_scale_set" "web" {
   sku                 = "Standard_B2ms"
   instances           = 1
   admin_password      = azurerm_key_vault_secret.webpassword.value
-  admin_username      = "adminuser"
+  admin_username      = var.web_admin_username
   
   source_image_reference {
     publisher = "MicrosoftWindowsServer"
@@ -47,10 +47,14 @@ resource "azurerm_linux_virtual_machine" "snapvideobackend" {
   network_interface_ids = [azurerm_network_interface.snapvideobackend.id]
   size                  = "Standard_B2ms"
   availability_set_id   = azurerm_availability_set.backend.id
-  computer_name         = "vm-backend"
-  admin_username        = "testadmin"
-  admin_password        = azurerm_key_vault_secret.backendpassword.value
-  disable_password_authentication = false
+  computer_name                   = "vm-backend"
+  admin_username                  = var.backend_admin_username
+  disable_password_authentication = true
+
+  admin_ssh_key {
+    username   = var.backend_admin_username
+    public_key = var.backend_ssh_public_key
+  }
 
   source_image_reference {
     publisher = "Canonical"
