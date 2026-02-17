@@ -108,8 +108,8 @@ resource "azurerm_application_gateway" "network" {
   location            = azurerm_resource_group.rg.location
   
   sku {
-    name     = "Standard_Small"
-    tier     = "Standard"
+    name     = "Standard_v2"
+    tier     = "Standard_v2"
     capacity = 2
   }
 
