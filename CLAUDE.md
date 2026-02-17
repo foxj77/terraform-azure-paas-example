@@ -84,3 +84,4 @@ Traffic flows: Internet → App Gateway → VMSS (port 443) → backend LB at `1
 - The lock file (`.terraform.lock.hcl`) is committed. Provider versions are pinned: `azurerm ~> 4.60.0`, `random 3.8.1`.
 - The project was originally deployed via Terraform Cloud. There is no remote backend configured in the code; set one up before using in CI.
 - `azurerm_public_ip.web` uses `allocation_method = "Dynamic"`, which is incompatible with App Gateway `Standard_v2` — this will error on `apply` and needs to be changed to `"Static"`.
+- The `request_routing_rule` block in `network.tf` is missing a `priority` field, which is required by the `azurerm` v4 provider and will cause a plan error.
