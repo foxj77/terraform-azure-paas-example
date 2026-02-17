@@ -17,7 +17,7 @@ resource "azurerm_mysql_flexible_server" "snapvideo" {
   }
 
   depends_on = [azurerm_private_dns_zone_virtual_network_link.snapvideo, azurerm_subnet.database, azurerm_key_vault.kv]
-  
+
   tags = {
     "environment"  = "client demo"
     "productowner" = "JohnFox"

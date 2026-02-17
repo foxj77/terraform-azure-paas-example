@@ -6,7 +6,7 @@ resource "azurerm_windows_virtual_machine_scale_set" "web" {
   instances           = 1
   admin_password      = azurerm_key_vault_secret.webpassword.value
   admin_username      = var.web_admin_username
-  
+
   source_image_reference {
     publisher = "MicrosoftWindowsServer"
     offer     = "WindowsServer"
@@ -30,7 +30,7 @@ resource "azurerm_windows_virtual_machine_scale_set" "web" {
     }
   }
 
-tags = {
+  tags = {
     "environment"  = "client demo"
     "productowner" = "JohnFox"
     "deployedBy"   = "terraformCloud"
@@ -41,12 +41,12 @@ tags = {
 
 
 resource "azurerm_linux_virtual_machine" "snapvideobackend" {
-  name                  = "vm-backend"
-  location              = azurerm_resource_group.rg.location
-  resource_group_name   = azurerm_resource_group.rg.name
-  network_interface_ids = [azurerm_network_interface.snapvideobackend.id]
-  size                  = "Standard_B2ms"
-  availability_set_id   = azurerm_availability_set.backend.id
+  name                            = "vm-backend"
+  location                        = azurerm_resource_group.rg.location
+  resource_group_name             = azurerm_resource_group.rg.name
+  network_interface_ids           = [azurerm_network_interface.snapvideobackend.id]
+  size                            = "Standard_B2ms"
+  availability_set_id             = azurerm_availability_set.backend.id
   computer_name                   = "vm-backend"
   admin_username                  = var.backend_admin_username
   disable_password_authentication = true
