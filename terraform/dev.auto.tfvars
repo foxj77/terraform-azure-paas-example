@@ -1,3 +1,0 @@
-customer = "snapvideo"
-location = "westeurope"
-
