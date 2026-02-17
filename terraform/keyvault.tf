@@ -52,19 +52,6 @@ resource "azurerm_key_vault_secret" "webpassword" {
 }
 
 #Create KeyVault VM password
-resource "random_password" "backendpassword" {
-  length  = 20
-  special = true
-}
-#Create Key Vault Secret
-resource "azurerm_key_vault_secret" "backendpassword" {
-  name         = "backendPassword"
-  value        = random_password.backendpassword.result
-  key_vault_id = azurerm_key_vault.kv.id
-  depends_on   = [azurerm_key_vault.kv]
-}
-
-#Create KeyVault VM password
 resource "random_password" "databasepassword" {
   length  = 20
   special = true
