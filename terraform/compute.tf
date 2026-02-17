@@ -10,7 +10,7 @@ resource "azurerm_windows_virtual_machine_scale_set" "web" {
   source_image_reference {
     publisher = "MicrosoftWindowsServer"
     offer     = "WindowsServer"
-    sku       = "2016-Datacenter-Server-Core"
+    sku       = "2022-datacenter-core"
     version   = "latest"
   }
 
@@ -40,42 +40,32 @@ tags = {
 }
 
 
-resource "azurerm_virtual_machine" "snapvideobackend" {
+resource "azurerm_linux_virtual_machine" "snapvideobackend" {
   name                  = "vm-backend"
   location              = azurerm_resource_group.rg.location
   resource_group_name   = azurerm_resource_group.rg.name
   network_interface_ids = [azurerm_network_interface.snapvideobackend.id]
-  vm_size               = "Standard_B2ms"
+  size                  = "Standard_B2ms"
   availability_set_id   = azurerm_availability_set.backend.id
+  computer_name         = "vm-backend"
+  admin_username        = "testadmin"
+  admin_password        = azurerm_key_vault_secret.backendpassword.value
+  disable_password_authentication = false
 
-  # Uncomment this line to delete the OS disk automatically when deleting the VM
-  delete_os_disk_on_termination = true
-
-  # Uncomment this line to delete the data disks automatically when deleting the VM
-  delete_data_disks_on_termination = true
-
-  storage_image_reference {
+  source_image_reference {
     publisher = "Canonical"
-    offer     = "UbuntuServer"
-    sku       = "16.04-LTS"
+    offer     = "0001-com-ubuntu-server-jammy"
+    sku       = "22_04-lts-gen2"
     version   = "latest"
   }
-  storage_os_disk {
-    name              = "disk-osBackend-${var.customer}-${terraform.workspace}-${var.location}"
-    caching           = "ReadWrite"
-    create_option     = "FromImage"
-    managed_disk_type = "Standard_LRS"
-  }
-  os_profile {
-    computer_name  = "hostname"
-    admin_username = "testadmin"
-    admin_password = azurerm_key_vault_secret.backendpassword.value
-  }
-  os_profile_linux_config {
-    disable_password_authentication = false
+
+  os_disk {
+    name                 = "disk-osBackend-${var.customer}-${terraform.workspace}-${var.location}"
+    caching              = "ReadWrite"
+    storage_account_type = "Standard_LRS"
   }
 
-tags = {
+  tags = {
     "environment"  = "client demo"
     "productowner" = "JohnFox"
     "deployedBy"   = "terraformCloud"
