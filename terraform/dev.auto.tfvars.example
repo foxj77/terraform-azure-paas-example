@@ -1,0 +1,4 @@
+customer = "snapvideo"
+location = "westeurope"
+
+backend_ssh_public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCexamplekeyreplacethiswithyourownpublickey1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ your-email@example.com"
