@@ -99,7 +99,6 @@ locals {
   http_setting_name              = "${azurerm_virtual_network.snapvideo.name}-be-htst"
   listener_name                  = "${azurerm_virtual_network.snapvideo.name}-httplstn"
   request_routing_rule_name      = "${azurerm_virtual_network.snapvideo.name}-rqrt"
-  redirect_configuration_name    = "${azurerm_virtual_network.snapvideo.name}-rdrcfg"
 }
 
 resource "azurerm_application_gateway" "network" {
