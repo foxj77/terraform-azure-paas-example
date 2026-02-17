@@ -9,7 +9,7 @@ resource "azurerm_mysql_flexible_server" "snapvideo" {
   private_dns_zone_id    = azurerm_private_dns_zone.snapvideo.id
   sku_name               = "GP_Standard_D2ds_v4"
   zone                   = 1
-  version                = 5.7
+  version                = "8.0.21"
 
   high_availability {
     mode                      = "ZoneRedundant"
