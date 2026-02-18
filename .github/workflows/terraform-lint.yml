@@ -41,3 +41,11 @@ jobs:
 
       - name: TFLint
         run: tflint --recursive --config=$GITHUB_WORKSPACE/terraform/.tflint.hcl
+
+      - name: Trivy Security Scan
+        uses: aquasecurity/trivy-action@0.30.0
+        with:
+          scan-type: config
+          scan-ref: terraform/
+          exit-code: "1"
+          severity: CRITICAL,HIGH
