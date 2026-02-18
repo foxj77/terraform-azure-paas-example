@@ -37,7 +37,7 @@ jobs:
         run: terraform -chdir=terraform validate
 
       - name: TFLint Init
-        run: tflint --init --config=terraform/.tflint.hcl
+        run: tflint --init --config=$GITHUB_WORKSPACE/terraform/.tflint.hcl
 
       - name: TFLint
-        run: tflint --recursive --config=terraform/.tflint.hcl
+        run: tflint --recursive --config=$GITHUB_WORKSPACE/terraform/.tflint.hcl
