@@ -51,6 +51,7 @@ jobs:
           output: 'trivy-results.sarif'
           severity: CRITICAL,HIGH
           exit-code: "1"
+          limit-severities-for-sarif: true
           skip-dirs: '.cache'
 
       - name: Upload Trivy results to GitHub Security
