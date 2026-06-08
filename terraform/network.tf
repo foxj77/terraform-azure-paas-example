@@ -62,9 +62,10 @@ resource "azurerm_lb" "backend" {
   resource_group_name = azurerm_resource_group.rg.name
 
   frontend_ip_configuration {
-    name               = "beip-${var.customer}-${terraform.workspace}-${var.location}"
-    subnet_id          = azurerm_subnet.backend.id
-    private_ip_address = "10.0.2.240"
+    name                          = "beip-${var.customer}-${terraform.workspace}-${var.location}"
+    subnet_id                     = azurerm_subnet.backend.id
+    private_ip_address            = "10.0.2.240"
+    private_ip_address_allocation = "Static"
   }
 }
 
@@ -89,7 +90,7 @@ resource "azurerm_public_ip" "web" {
   name                = "ip-web-${var.customer}-${terraform.workspace}-${var.location}"
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
-  allocation_method   = "Dynamic"
+  allocation_method   = "Static"
 }
 
 locals {
@@ -149,6 +150,7 @@ resource "azurerm_application_gateway" "network" {
 
   request_routing_rule {
     name                       = local.request_routing_rule_name
+    priority                   = 100
     rule_type                  = "Basic"
     http_listener_name         = local.listener_name
     backend_address_pool_name  = local.backend_address_pool_name
