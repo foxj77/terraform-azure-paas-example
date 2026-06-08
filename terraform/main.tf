@@ -1,22 +1,3 @@
-terraform {
-  required_version = ">= 1.1.0"
-  required_providers {
-    azurerm = {
-      source  = "hashicorp/azurerm"
-      version = "~> 4.60.0"
-    }
-    random = {
-      source  = "hashicorp/random"
-      version = "~> 3.8.1"
-    }
-  }
-
-}
-
-provider "azurerm" {
-  features {}
-}
-
 resource "azurerm_resource_group" "rg" {
   name     = "rg-${var.customer}-${terraform.workspace}-${var.location}"
   location = var.location
