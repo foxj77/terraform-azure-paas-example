@@ -11,7 +11,7 @@ resource "azurerm_network_security_group" "web" {
     protocol                   = "Tcp"
     source_port_range          = "*"
     destination_port_range     = "443"
-    source_address_prefix      = "*"
+    source_address_prefix      = "10.0.0.0/24"
     destination_address_prefix = "10.0.1.0/24"
   }
 
